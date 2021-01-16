@@ -1,6 +1,6 @@
 import mysql from 'mysql';
  
-// con patron singleton
+// con patron singleton para evitar varaias instancias de clase
 export default class MySQL {
   private static _instance: MySQL;
 
@@ -18,6 +18,12 @@ export default class MySQL {
     });  
     
     this.conectarDB();
+  }
+
+  public static get instance() {
+    // verifica si existe una instancia si no existe llama el constructor y lo inicializa
+    // previene  creación de nuevas instancias
+    return this._instance || (this._instance = new this());
   }
 
   // metodo privado solo se accede desde la misma clase
